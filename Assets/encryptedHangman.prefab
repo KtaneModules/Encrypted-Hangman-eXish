@@ -291,6 +291,7 @@ GameObject:
   - component: {fileID: 114655075779726696}
   - component: {fileID: 114077170712204344}
   - component: {fileID: 114175916534414206}
+  - component: {fileID: 114133865144721078}
   m_Layer: 0
   m_Name: encryptedHangman
   m_TagString: Untagged
@@ -1834,6 +1835,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/DiffuseTint
+--- !u!114 &114133865144721078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1542182712404350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a2fc4ae3e690a498a0d85a2b5e0b99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114175916534414206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1845,6 +1857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f85271d99134d694f8504aab9292845e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BossHandler: {fileID: 0}
   bombInfo: {fileID: 114248957787909410}
   audio: {fileID: 114263312587187056}
   leftButton: {fileID: 114538150912905498}
@@ -1958,12 +1971,16 @@ MonoBehaviour:
   - 7
   - V
   - X
+  notValidModules:
+  - '...?'
+  - 14
+  - 64
+  - "\u2756"
   isQueryed: 0000000000000000000000000000000000000000000000000000
   answer: 
   uncipheredanswer: 
   currentprogress: 
   moduleName: 
-  ignoredModules: []
   isIgnored: 0
   isActive: 0
   isSolved: 0

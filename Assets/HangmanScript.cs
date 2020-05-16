@@ -8,7 +8,8 @@ using KModkit;
 
 public class HangmanScript : MonoBehaviour
 {
-
+    public KMBossModule BossHandler;
+    public static string[] ignoredModules = null;
 
     public KMBombInfo bombInfo;
     public KMAudio audio;
@@ -30,12 +31,12 @@ public class HangmanScript : MonoBehaviour
     public string[] alphabet = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
     public string[] modernAlphabet = { "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"};
     public string[] vigenereAlphabet = {"B", "4", "5", "P", "R", "E", "L", "0", "A", "6", "G", "F", "D", "H", "O", "8", "C", "W", "M", "Q", "Y", "S", "J", "2", "Z", "T", "U", "9", "I", "1", "N", "3", "K", "7", "V", "X"};
+    public string[] notValidModules = { "...?", "14", "64", "❖" };
     public bool[] isQueryed;
     public string answer;
     public string uncipheredanswer;
     public string currentprogress;
     public string moduleName;
-    public string[] ignoredModules;
     public bool isIgnored = false;
 
     static int moduleIdCounter = 1;
@@ -50,7 +51,10 @@ public class HangmanScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        ignoredModules = new string[]{ "Turn The Key", "Timing is Everything", "The Time Keeper", "Encrypted Hangman", "The Swan", "The Very Annoying Button", "Bamboozling Time Keeper", "Cookie Jars", "Divided Squares", "Random Access Memory", "Tax Returns" };
+        Init();
+    }
+
+    void Init() {
         additionalLetters.text = "";
         increment = 0;
         isIgnored = false;
@@ -58,7 +62,7 @@ public class HangmanScript : MonoBehaviour
         while (true)
         {
             answer = bombInfo.GetSolvableModuleNames().ElementAt(UnityEngine.Random.RandomRange(0, bombInfo.GetSolvableModuleNames().Count() - 1));
-            if (!bombInfo.GetSolvedModuleNames().Contains(answer))
+            if ((!bombInfo.GetSolvedModuleNames().Contains(answer) && !notValidModules.Contains(answer))||answer == "Encrypted Hangman")
             {
                 moduleName = answer;
                 break;
@@ -70,6 +74,16 @@ public class HangmanScript : MonoBehaviour
         answer = answer.Replace("%", "");
         answer = answer.Replace("?", "");
         answer = answer.Replace("-", "");
+        answer = answer.Replace("0", "");
+        answer = answer.Replace("1", "");
+        answer = answer.Replace("2", "");
+        answer = answer.Replace("3", "");
+        answer = answer.Replace("4", "");
+        answer = answer.Replace("5", "");
+        answer = answer.Replace("6", "");
+        answer = answer.Replace("7", "");
+        answer = answer.Replace("8", "");
+        answer = answer.Replace("9", "");
         answer = answer.ToUpper();
         if (ignoredModules.Contains(moduleName.Trim()))
         {
@@ -98,13 +112,25 @@ public class HangmanScript : MonoBehaviour
             Debug.LogFormat("[Encrypted Hangman #{0}] There is an Organization on the bomb. You are not restricted of solving this module first. Instances of {1} may be solved. ", moduleId, moduleName);
         }
 
-        for (int i = 0; i < bombInfo.GetSolvableModuleNames().Count(); i++) {
-            Debug.LogFormat("[Encrypted Hangman #{0}] {1}", moduleId, bombInfo.GetSolvableModuleNames().ElementAt(i));
-        }
     }
 
     void Awake()
     {
+        if (ignoredModules == null)
+            ignoredModules = GetComponent<KMBossModule>().GetIgnoredModules("Encrypted Hangman", new string[]
+            {   "Encrypted Hangman",
+                "Turn The Key",
+                "Timing is Everything",
+                "The Time Keeper",
+                "The Swan",
+                "The Very Annoying Button",
+                "Bamboozling Time Keeper",
+                "Cookie Jars",
+                "Divided Squares",
+                "Random Access Memory",
+                "Tax Returns"
+            });
+
         leftButton.OnInteract += delegate () { PressArrowButton(-1); return false; };
         rightButton.OnInteract += delegate () { PressArrowButton(1); return false; };
         submitLetter.OnInteract += delegate () { pressSubmitLetter(submitLetter); return false; };
@@ -182,7 +208,7 @@ public class HangmanScript : MonoBehaviour
         yield return new WaitForSeconds(2f);
         inAnimation = false;
         Debug.LogFormat("[Encrypted Hangman #{0}] Resetting module.", moduleId);
-        Start();
+        Init();
         
     }
 
@@ -519,11 +545,13 @@ public class HangmanScript : MonoBehaviour
     //-------------------------------------------------- TP SUPPORT ----------------------------------------------------------------------------
 
     private readonly string TwitchHelpMessage = "Use !{0} select ABCDEFG to enter or query those letters. WARNING: The command will not stop upon querying a wrong letter! ";
+
     IEnumerator ProcessTwitchCommand(string command)
     {
         command = command.ToUpper();
         if (Regex.IsMatch(command, @"^SELECT [A-Z]+$"))
         {
+            yield return null;
             command = command.Substring(6).Trim();
             answer = answer.Replace(" ", "");
             char[] temp = command.ToCharArray();
@@ -540,6 +568,14 @@ public class HangmanScript : MonoBehaviour
             }
             yield break;
         }
-        else { yield return null; }
+        else {
+            yield return "sendtochaterror Command must begin with SELECT.";
+        }
+    }
+
+    IEnumerator TwitchHandleForcedSolve() {
+        Solve();
+        yield return null;
+
     }
 }

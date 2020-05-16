@@ -14,10 +14,12 @@ MonoBehaviour:
   id: encryptedHangman
   title: Encrypted Hangman
   author: GeekYiwen
-  description: "Encrypted Hangman\n\nBy GeekYiwen\n\r\nModule-Id: encryptedHangman\r\nModule
-    File-ID: \n\r\nPlay a game of Hangman!\n\r\nThis module has TP-Support and will
-    need a warning message.\n\r\nGo to  \tfor the maunel.\r\n\r\nFor any bugs you
-    find, please DM me either on Discord: #7561 GeekYiwen or via E-Mail: yiwenmc@gmail.com\r\n\r\nIf
+  description: "Encrypted Hangman\r\n\r\nBy GeekYiwen\r\n\r\nModule-Id: encryptedHangman\r\nModule
+    File-ID: 2097028243\r\n\r\nPlay a game of Hangman!\r\n\r\nThis module has TP-Support
+    and will need a warning message.\r\n\r\nGo to \rhttps://ktane.timwi.de/HTML/Encrypted%20Hangman.html
+    for the manuel. This manuel doesn't tell you that numbers are also ignored such
+    as special symbols. It will be updated soon.\n\r\nFor any bugs you find, please
+    DM me either on Discord: #7561 GeekYiwen or via E-Mail: yiwenmc@gmail.com\r\n\r\nIf
     you don't understand the manuel, also feel free to ask me."
   version: 1.0
   outputFolder: build
