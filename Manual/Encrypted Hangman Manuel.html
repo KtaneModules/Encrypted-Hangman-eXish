@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -9,11 +10,29 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/font.css">
     <script src="js/ktane-utils.js"></script>
-	<style>
-			.index {
-				column-count: 3;
-			}
-	</style>
+    <style>
+        .autohide {
+          display: none;
+        }
+        @media print {
+            a[href] {
+              text-decoration: none;
+              color: black;
+            }
+            a[href]:after {
+                content: none !important;
+            }
+            .autohide {
+              display: inline;
+            }
+            .autoshow {
+              display: none;
+            }
+        }
+        .index {
+            column-count: 3;
+        }
+    </style>
 </head>
 <body>
     <div id="ManualContent">
@@ -31,7 +50,7 @@
 				module. Between those is a screen with a letter displayed on it. Beneath that are a bunch of underscores. On the right there will be a hangman displayed,
 				but only if you interact with the module. The background looks like a blackboard.</p>
 				
-				<p><h3>How to solve the module:</h3>Literally play Hangman! BUT the message is encoded. To solve the module you will have to figur out what the encoded message is. You can do this by looking what module has the required amount of letters or by query some letters... There is loads of methods. 
+				<p><h3>How to solve the module:</h3>Literally play Hangman! BUT the message is encoded. To solve the module you will have to figure out what the encoded message is. You can do this by looking what module has the required amount of letters or by query some letters... There is loads of methods. 
 				When all letters have been submitted and no underscores are left on the screen,
 				the module solves. You must accomplish this before the hangman is done. The gallow has 4 pieces of wood and the hangman itself consists of a head, a body, 2 legs and 2 arms. So you have 9 wrong queries before the hangman is done. (It will strike on the tenth)
 				Finishing the hangman will incure a strike and will reset the module. Any wrong letters will not be recorded by the module like in the regular game.</p>
@@ -43,7 +62,7 @@
 
 				<p> <b>WARNING!</b> <br>
 				Be careful with solving any modules. If you solve any instance of a module which is used as the original message of THIS module, you will recieve a strike and the module will reset.
-				So solve this one first or figur out which module it is referring to. 
+				So solve this one first or figure out which module it is referring to. 
 				Some modules which are time based are ignored from the solving rule*(Ignored Modules), but they can still appear as the message. *If one or more Organization modules are on the bomb disreguard this section of rules.</p>
 				</p>
 				
@@ -57,7 +76,10 @@
                 </div>
                 <div class="page-content">
                     <h3>Appendix - C1PH3R2</h3>
-					<table>
+					<table width = "100%">
+					<col style="width:10%">
+					<col style="width:70%">
+					<col style="width:20%">
 						<tr>
 							<th>Cipher</th>
 							<th>How does it work?</th>
@@ -89,6 +111,45 @@
 							<td>(Last Digit in S#)*2+1</td>
 						</tr>
 						<tr>
+							<td>Modern Cipher</td>
+							<td>In Modern Cipher all letters are shifted a certain number of places down using the QWERTY Keyboard as alphabet. That certain number of times is the key. The full sequence therefor is QWERTYUIOPASDFGHJKLZXCVBNM<br>
+							If the key is 2: Q --> E; A --> D; B --> M ...</td>
+							<td>Sum of the S# digits.</td>
+						</tr>		
+						<tr>
+							<td>Vigenère Cipher</td>
+							<td>In Vigenère Cipher every letter in the message is added to the letter with the same position as the key. 
+							Take this sum mod36 and look what letter is represented by this value.
+							Each letter has a specific value which you can find <a href = "https://ktane.timwi.de/HTML/Vigen%C3%A8re%20Cipher.html"><span class="autohide">in the Vigenére Cipher manual</span><span class="autoshow">here</span></a>.
+							The key is always as long as the message itself. <br>
+							If the key is "ABCDE" and the message is "KTANE": A + K = 8 + 32 = 40%36 = 4 = R; B + T = 0 + 25 = 25 = T; ...
+							The encrypted messege is then "RTZLG". <br>
+							This cipher uses numbers too. If the message or the key has numbers leave them as they are. If numbers occure in the encrypted message they will be substituted with A0J9.
+							</td>
+							<td>The key is the serial number. Adapt the length of the Serial number by repeating it. (With S# of ABCDEF and a length of 9, the key is ABCDEFABC)</td>
+						</tr>
+					</table>
+                </div>
+                <div class="page-footer relative-footer">Page 2 of 4</div>
+            </div>
+			
+			
+			<div class="page page-bg-03">
+                <div class="page-header">
+                    <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                    <span class="page-header-section-title">Encrypted Hangman</span>
+                </div>
+                <div class="page-content">
+					<table>
+					<col style="width:10%">
+					<col style="width:70%">
+					<col style="width:20%">
+						<tr>
+							<th>Cipher</th>
+							<th>How does it work?</th>
+							<th>What is the key?</th>
+						</tr>
+						<tr>
 							<td>Playfair Cipher</td>
 							<td>In Playfair Cipher all letters will be changed using a 5x5 table. To get this table first put all distinct characters (No duplicates) of the key in reading order into that grid. Then fill up the rest using the alphabet. All J are substitured by I.
 							<br>With a key of "textabc" the table will look like this:<br>
@@ -107,42 +168,6 @@
 							</ul>
 						</td>							
 						<td>Serial number (Numbers should be translated into letters using A0J9)</td>	
-						</tr>		
-					</table>
-                </div>
-                <div class="page-footer relative-footer">Page 2 of 4</div>
-            </div>
-			
-			
-			<div class="page page-bg-03">
-                <div class="page-header">
-                    <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
-                    <span class="page-header-section-title">Encrypted Hangman</span>
-                </div>
-                <div class="page-content">
-					<table>
-						<tr>
-							<th>Cipher</th>
-							<th>How does it work?</th>
-							<th>What is the key?</th>
-						</tr>
-						<tr>
-							<td>Modern Cipher</td>
-							<td>In Modern Cipher all letters are shifted a certain number of places down using the QWERTY Keyboard as alphabet. That certain number of times is the key. The full sequence therefor is QWERTYUIOPASDFGHJKLZXCVBNM<br>
-							If the key is 2: Q --> E; A --> D; B --> M ...</td>
-							<td>Sum of the S# digits.</td>
-						</tr>
-						<tr>
-							<td>Vigenère Cipher</td>
-							<td>In Vigenère Cipher every letter in the message is added to the letter with the same position as the key. 
-							Take this sum mod36 and look what letter is represented by this value.
-							Each letter has a specific value which you can find <a href = "https://ktane.timwi.de/HTML/Vigen%C3%A8re%20Cipher.html">here</a>.
-							The key is always as long as the message itself. <br>
-							If the key is "ABCDE" and the message is "KTANE": A + K = 8 + 32 = 40%36 = 4 = R; B + T = 0 + 25 = 25 = T; ...
-							The encrypted messege is then "RTZLG". <br>
-							This cipher uses numbers too. If the message or the key has numbers leave them as they are. If numbers occure in the encrypted message they will be substituted with A0J9.
-							</td>
-							<td>The key is the serial number. Adapt the length of the Serial number by repeating it. (With S# of ABCDEF and a length of 9, the key is ABCDEFABC)</td>
 						</tr>
 						
 						

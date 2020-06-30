@@ -31,6 +31,7 @@ public class HangmanScript : MonoBehaviour
     public string[] alphabet = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
     public string[] modernAlphabet = { "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"};
     public string[] vigenereAlphabet = {"B", "4", "5", "P", "R", "E", "L", "0", "A", "6", "G", "F", "D", "H", "O", "8", "C", "W", "M", "Q", "Y", "S", "J", "2", "Z", "T", "U", "9", "I", "1", "N", "3", "K", "7", "V", "X"};
+    public string[] hillAlphabet = { "Z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y"};
     public string[] notValidModules = { "...?", "14", "64", "❖" };
     public bool[] isQueryed;
     public string answer;
@@ -43,6 +44,7 @@ public class HangmanScript : MonoBehaviour
     int moduleId = 0;
     public bool isActive = false;
     public bool isSolved = false;
+
     public bool inAnimation = false;
     public bool organMode = false;
 
@@ -68,22 +70,19 @@ public class HangmanScript : MonoBehaviour
                 break;
             }
         }
-        answer = answer.Replace(" ", "");
-        answer = answer.Replace("'", "");
-        answer = answer.Replace(".", "");
-        answer = answer.Replace("%", "");
-        answer = answer.Replace("?", "");
-        answer = answer.Replace("-", "");
-        answer = answer.Replace("0", "");
-        answer = answer.Replace("1", "");
-        answer = answer.Replace("2", "");
-        answer = answer.Replace("3", "");
-        answer = answer.Replace("4", "");
-        answer = answer.Replace("5", "");
-        answer = answer.Replace("6", "");
-        answer = answer.Replace("7", "");
-        answer = answer.Replace("8", "");
-        answer = answer.Replace("9", "");
+        /*
+        moduleName = "Partial Derivatives";     //TESTING LINES
+        answer = moduleName;                    //TESTING LINES
+        */
+        answer = answer.Replace("ü", "u");
+        answer = answer.Replace("ä", "a");
+        answer = answer.Replace("ö", "o");
+        answer = answer.Replace("Ü", "u");
+        answer = answer.Replace("Ä", "a");
+        answer = answer.Replace("Ö", "o");
+
+        answer = new String(answer.Where(Char.IsLetter).ToArray());
+        
         answer = answer.ToUpper();
         if (ignoredModules.Contains(moduleName.Trim()))
         {
@@ -130,7 +129,7 @@ public class HangmanScript : MonoBehaviour
                 "Random Access Memory",
                 "Tax Returns"
             });
-
+        moduleId = moduleIdCounter++;
         leftButton.OnInteract += delegate () { PressArrowButton(-1); return false; };
         rightButton.OnInteract += delegate () { PressArrowButton(1); return false; };
         submitLetter.OnInteract += delegate () { pressSubmitLetter(submitLetter); return false; };
@@ -232,18 +231,20 @@ public class HangmanScript : MonoBehaviour
                 return i;
             }
         }
-        return -1;
+        return int.Parse(letter) - 1;
     }
 
     void displayCurrentAnswer(string currentprogress)
     {
+        string temp = "";
+        string tempCurrentprogress = currentprogress;
         for (int i = 0; i < currentprogress.Length / 12; i++)
         {
-            string front = currentprogress.Substring(0, 12 * (i + 1) + i);
-            string back = currentprogress.Substring(12 * (i + 1) + i, currentprogress.Length - 12 * (i + 1) - i);
-            currentprogress = front + "\n" + back;
+            temp = temp + tempCurrentprogress.Substring(0, 11) + "\n";
+            tempCurrentprogress = tempCurrentprogress.Substring(12);
         }
-        AnswerDisp.text = currentprogress;
+        temp = temp + tempCurrentprogress;
+        AnswerDisp.text = temp;
     }
 
     void pressSubmitLetter(KMSelectable button)
@@ -311,10 +312,12 @@ public class HangmanScript : MonoBehaviour
 
     public string encrypt(string text, int method)
     {
+        /*
+        method = 0;     //TESTING LINE
+        */
         switch (method)
         {
             case 0:
-                Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Caesar Cipher with key {1} .", moduleId, bombInfo.GetSerialNumberNumbers().ElementAt(0));
                 return caesarCipher(text, bombInfo.GetSerialNumberNumbers().ElementAt(0));
             case 1:
                 string temp = bombInfo.GetSerialNumber();
@@ -346,12 +349,19 @@ public class HangmanScript : MonoBehaviour
                 return modernCipher(text, bombInfo.GetSerialNumberNumbers().Sum());
             case 6:
                 return ViginereCipher(text, bombInfo.GetSerialNumber().ToString());
+            /*case 7:
+                return hillCipher(text, new int[] { findAlphaPos(bombInfo.GetSerialNumber().Substring(0, 1), alphabet), findAlphaPos(bombInfo.GetSerialNumber().Substring(1, 1), alphabet), findAlphaPos(bombInfo.GetSerialNumber().Substring(2, 1), alphabet), findAlphaPos(bombInfo.GetSerialNumber().Substring(3, 1), alphabet) });
+                */
             default: return text;
         }
     }
 
     public string caesarCipher(string text, int key)
     {
+        if (key == 0) {
+            key = 10;
+        }
+        Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Caesar Cipher with key {1} .", moduleId, key);
         string temp = "";
         for (int i = 0; i < text.Length; i++)
         {
@@ -362,6 +372,9 @@ public class HangmanScript : MonoBehaviour
     }
 
     public string modernCipher(string text, int key) {
+        /*
+        key = 10;           //TESTING LINES 
+        */
         string temp = "";
         for (int i = 0; i < text.Length; i++)
         {
@@ -539,6 +552,30 @@ public class HangmanScript : MonoBehaviour
             temp = temp + alphabet[25 - findAlphaPos(text.Substring(i, 1), alphabet)];
         }
         return temp;
+    }
+
+    public string hillCipher(string text, int[] matrix) {
+        bool letterAdded = false;
+        if (text.Length % 2 == 1) {
+            text = text + "Y";
+            letterAdded = true;
+        }
+        Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Hill Cipher with matrix:", moduleId);
+        Debug.LogFormat("[Encrypted Hangman #{0}] {1} {2}", moduleId, matrix[0], matrix[1]);
+        Debug.LogFormat("[Encrypted Hangman #{0}] {1} {2}", moduleId, matrix[2], matrix[3]);
+        string temp = "";
+        for (int i = 0; i < text.Length / 2; i++) {
+            string letter1 = text.Substring(2 * i,1);
+            string letter2 = text.Substring(2 * i + 1, 1);
+            temp = temp + hillAlphabet[(findAlphaPos(letter1,hillAlphabet)*matrix[0] + findAlphaPos(letter2,hillAlphabet)*matrix[1]) % 26];
+            temp = temp + hillAlphabet[(findAlphaPos(letter1, hillAlphabet) * matrix[2] + findAlphaPos(letter2, hillAlphabet) * matrix[3]) % 26];
+        }
+        if (letterAdded) {
+            return temp.Substring(0, temp.Length - 1);
+        } else {
+            return temp;
+        }
+
     }
 
 
