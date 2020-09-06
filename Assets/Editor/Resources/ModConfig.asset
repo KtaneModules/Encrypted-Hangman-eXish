@@ -21,6 +21,6 @@ MonoBehaviour:
     as special symbols. It will be updated soon.\n\r\nFor any bugs you find, please
     DM me either on Discord: #7561 GeekYiwen or via E-Mail: yiwenmc@gmail.com\r\n\r\nIf
     you don't understand the manuel, also feel free to ask me."
-  version: 1.7.1
+  version: 1.0
   outputFolder: build
   previewImage: {fileID: 2800000, guid: 1da01d263145a1046825533b892c0fef, type: 3}
