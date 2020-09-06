@@ -63,17 +63,26 @@ public class HangmanScript : MonoBehaviour
         isQueryed = new bool[] { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
         while (true)
         {
+<<<<<<< Updated upstream
             answer = bombInfo.GetSolvableModuleNames().ElementAt(UnityEngine.Random.RandomRange(0, bombInfo.GetSolvableModuleNames().Count() - 1));
             if ((!bombInfo.GetSolvedModuleNames().Contains(answer) && !notValidModules.Contains(answer))||answer == "Encrypted Hangman")
+=======
+            answer = bombInfo.GetSolvableModuleNames().ElementAt(Random.Range(0, bombInfo.GetSolvableModuleNames().Count() - 1));
+            if (!bombInfo.GetSolvedModuleNames().Contains(answer) || answer == "Encrypted Hangman")
+>>>>>>> Stashed changes
             {
                 moduleName = answer;
                 break;
             }
+<<<<<<< Updated upstream
         }
         /*
         moduleName = "Partial Derivatives";     //TESTING LINES
         answer = moduleName;                    //TESTING LINES
         */
+=======
+        }               
+>>>>>>> Stashed changes
         answer = answer.Replace("ü", "u");
         answer = answer.Replace("ä", "a");
         answer = answer.Replace("ö", "o");
@@ -112,7 +121,6 @@ public class HangmanScript : MonoBehaviour
         }
 
     }
-
     void Awake()
     {
         if (ignoredModules == null)
