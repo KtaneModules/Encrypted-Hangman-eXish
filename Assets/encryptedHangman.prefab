@@ -142,7 +142,6 @@ GameObject:
   - component: {fileID: 4879372746555036}
   - component: {fileID: 33392322428673550}
   - component: {fileID: 23564102477324634}
-  - component: {fileID: 95049488500993838}
   - component: {fileID: 114604627778531232}
   - component: {fileID: 114862829491223082}
   m_Layer: 0
@@ -251,7 +250,6 @@ GameObject:
   - component: {fileID: 4725539411523272}
   - component: {fileID: 33586949298342632}
   - component: {fileID: 23186391628602736}
-  - component: {fileID: 95850234675629370}
   - component: {fileID: 114477208783135924}
   m_Layer: 0
   m_Name: RacketTop
@@ -327,7 +325,6 @@ GameObject:
   - component: {fileID: 4167552871199702}
   - component: {fileID: 33349753787777492}
   - component: {fileID: 23418004900056728}
-  - component: {fileID: 95907110091707304}
   - component: {fileID: 114373507940294076}
   m_Layer: 0
   m_Name: RacketMan
@@ -346,7 +343,6 @@ GameObject:
   - component: {fileID: 4210210480555992}
   - component: {fileID: 33563257333089394}
   - component: {fileID: 23021907293189114}
-  - component: {fileID: 95441541159528898}
   - component: {fileID: 114538150912905498}
   - component: {fileID: 114840870581777350}
   m_Layer: 0
@@ -384,7 +380,6 @@ GameObject:
   - component: {fileID: 4660979994519572}
   - component: {fileID: 33624308696069404}
   - component: {fileID: 23837984207873730}
-  - component: {fileID: 95479696056326868}
   - component: {fileID: 114578429223456738}
   m_Layer: 0
   m_Name: RacketBottom
@@ -436,7 +431,6 @@ GameObject:
   - component: {fileID: 4967045959429414}
   - component: {fileID: 33454864997784762}
   - component: {fileID: 23874334215569622}
-  - component: {fileID: 95221155823702716}
   - component: {fileID: 114202629900170396}
   m_Layer: 0
   m_Name: RacketMain
@@ -454,7 +448,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4989324581478408}
   - component: {fileID: 33895080743209906}
-  - component: {fileID: 65836590896404408}
   - component: {fileID: 23378578128214818}
   - component: {fileID: 114077976709683410}
   - component: {fileID: 114114080530461082}
@@ -1559,120 +1552,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1988430123355228}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65836590896404408
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1988430123355228}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &95049488500993838
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1271108072999564}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 43ba69103c0af1643b5a665b4b0cac91, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95221155823702716
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1792832493793374}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: ab35752d12d867d45be1fe7aa0411f93, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95441541159528898
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1644033818190934}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 43ba69103c0af1643b5a665b4b0cac91, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95479696056326868
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1691582156644956}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: ab35752d12d867d45be1fe7aa0411f93, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95850234675629370
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1519705728784964}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: ab35752d12d867d45be1fe7aa0411f93, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95907110091707304
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1603422936208966}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: ab35752d12d867d45be1fe7aa0411f93, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!102 &102084836381781106
 TextMesh:
   serializedVersion: 3
@@ -1857,7 +1736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f85271d99134d694f8504aab9292845e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BossHandler: {fileID: 0}
+  BossHandler: {fileID: 114133865144721078}
   bombInfo: {fileID: 114248957787909410}
   audio: {fileID: 114263312587187056}
   leftButton: {fileID: 114538150912905498}
@@ -1971,11 +1850,6 @@ MonoBehaviour:
   - 7
   - V
   - X
-  notValidModules:
-  - '...?'
-  - 14
-  - 64
-  - "\u2756"
   isQueryed: 0000000000000000000000000000000000000000000000000000
   answer: 
   uncipheredanswer: 
@@ -2071,7 +1945,7 @@ MonoBehaviour:
   m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HighlightScale: {x: 1.1, y: 1.1, z: 1.1}
+  HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
 --- !u!114 &114407054204642834
 MonoBehaviour:

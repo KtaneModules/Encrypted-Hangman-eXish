@@ -4,6 +4,8 @@ using System.Linq;
 using KModkit;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using System.Text;
+using System.Globalization;
 
 public class HangmanScript : MonoBehaviour
 {
@@ -39,7 +41,7 @@ public class HangmanScript : MonoBehaviour
     int encryptionMethod; // for Souvenir
 
     static int moduleIdCounter = 1;
-    int moduleId = 0;
+    int moduleId;
     public bool isActive = false;
     public bool isSolved = false;
     public bool inAnimation = false;
@@ -70,12 +72,19 @@ public class HangmanScript : MonoBehaviour
 
         }
 
-        answer = answer.Replace("ü", "u");
-        answer = answer.Replace("ä", "a");
-        answer = answer.Replace("ö", "o");
-        answer = answer.Replace("Ü", "u");
-        answer = answer.Replace("Ä", "a");
-        answer = answer.Replace("Ö", "o");
+        var normalizedString = answer.Normalize(NormalizationForm.FormD);
+        var stringBuilder = new StringBuilder();
+
+        foreach (var c in normalizedString)
+        {
+            var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+            if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+            {
+                stringBuilder.Append(c);
+            }
+        }
+
+        answer = stringBuilder.ToString().Normalize(NormalizationForm.FormC);
 
         answer = new string(answer.Where(char.IsLetter).ToArray());
 
@@ -95,7 +104,7 @@ public class HangmanScript : MonoBehaviour
             uncipheredanswer = answer;
             Debug.LogFormat("[Encrypted Hangman #{0}] Selected module is -{1}- .", moduleId, moduleName);
             Debug.LogFormat("[Encrypted Hangman #{0}] The original message is -{1}- .", moduleId, uncipheredanswer);
-            answer = encrypt(answer, UnityEngine.Random.RandomRange(0, 6));
+            answer = encrypt(answer, Random.Range(0, 6));
             for (int i = 0; i < hangmanParts.Length; i++)
             {
                 hangmanParts[i].GetComponent<MeshRenderer>().enabled = false;
@@ -117,8 +126,9 @@ public class HangmanScript : MonoBehaviour
     }
     void Awake()
     {
+        moduleId = moduleIdCounter++;
         if (ignoredModules == null)
-            ignoredModules = GetComponent<KMBossModule>().GetIgnoredModules("Encrypted Hangman", new string[]
+            ignoredModules = BossHandler.GetIgnoredModules("Encrypted Hangman", new string[]
             {   "Encrypted Hangman",
                 "Turn The Key",
                 "Timing is Everything",
@@ -215,7 +225,10 @@ public class HangmanScript : MonoBehaviour
 
     void PressArrowButton(int x)
     {
-        GetComponent<KMAudio>().PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, rightButton.transform);
+        if (x == -1)
+            audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, leftButton.transform);
+        else
+            audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, rightButton.transform);
         int i = (findAlphaPos(LetterDisp.text, alphabet) + x) % 26;
         if (i == -1)
         {
@@ -545,7 +558,7 @@ public class HangmanScript : MonoBehaviour
 
     //-------------------------------------------------- TP SUPPORT ----------------------------------------------------------------------------
 
-    private readonly string TwitchHelpMessage = "Use !{0} select ABCDEFG to enter or query those letters. WARNING: The command will not stop upon querying a wrong letter! ";
+    private readonly string TwitchHelpMessage = "Use !{0} select ABCDEFG to enter or query those letters. WARNING: The command will not stop upon querying a wrong letter!";
 
     IEnumerator ProcessTwitchCommand(string command)
     {
@@ -574,9 +587,7 @@ public class HangmanScript : MonoBehaviour
         }
     }
 
-    IEnumerator TwitchHandleForcedSolve() {
+    void TwitchHandleForcedSolve() {
         Solve();
-        yield return null;
-
     }
 }
