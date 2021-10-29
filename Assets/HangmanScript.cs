@@ -102,8 +102,8 @@ public class HangmanScript : MonoBehaviour
                 answer = answer.Substring(0, 24);
             }
             uncipheredanswer = answer;
-            Debug.LogFormat("[Encrypted Hangman #{0}] Selected module is -{1}- .", moduleId, moduleName);
-            Debug.LogFormat("[Encrypted Hangman #{0}] The original message is -{1}- .", moduleId, uncipheredanswer);
+            Debug.LogFormat("[Encrypted Hangman #{0}] Selected module is -{1}-.", moduleId, moduleName);
+            Debug.LogFormat("[Encrypted Hangman #{0}] The original message is -{1}-.", moduleId, uncipheredanswer);
             answer = encrypt(answer, Random.Range(0, 6));
             for (int i = 0; i < hangmanParts.Length; i++)
             {
@@ -115,7 +115,7 @@ public class HangmanScript : MonoBehaviour
             if (bombInfo.GetSolvableModuleNames().Contains("Organization"))
             {
                 organMode = true;
-                Debug.LogFormat("[Encrypted Hangman #{0}] There is an Organization on the bomb. You are not restricted of solving this module first. Instances of {1} may be solved. ", moduleId, moduleName);
+                Debug.LogFormat("[Encrypted Hangman #{0}] There is an Organization on the bomb. You are not restricted of solving this module first. Instances of {1} may be solved.", moduleId, moduleName);
             }
         }
         else {
@@ -144,7 +144,7 @@ public class HangmanScript : MonoBehaviour
 
         leftButton.OnInteract += delegate () { PressArrowButton(-1); return false; };
         rightButton.OnInteract += delegate () { PressArrowButton(1); return false; };
-        submitLetter.OnInteract += delegate () { pressSubmitLetter(submitLetter); return false; };
+        submitLetter.OnInteract += delegate () { pressSubmitLetter(); return false; };
     }
 
     // Update is called once per frame
@@ -251,7 +251,8 @@ public class HangmanScript : MonoBehaviour
 
     void displayCurrentAnswer(string currentprogress)
     {
-        for (int i = 0; i < currentprogress.Length / 12; i++)
+        int end = currentprogress.Length / 12;
+        for (int i = 0; i < end; i++)
         {
             string front = currentprogress.Substring(0, 12 * (i + 1) + i);
             string back = currentprogress.Substring(12 * (i + 1) + i, currentprogress.Length - 12 * (i + 1) - i);
@@ -260,7 +261,7 @@ public class HangmanScript : MonoBehaviour
         AnswerDisp.text = currentprogress;
     }
 
-    void pressSubmitLetter(KMSelectable button)
+    void pressSubmitLetter()
     {
         if (!inAnimation && !isSolved)
         {
@@ -328,7 +329,7 @@ public class HangmanScript : MonoBehaviour
         switch (method)
         {
             case 0:
-                Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Caesar Cipher with key {1} .", moduleId, bombInfo.GetSerialNumberNumbers().ElementAt(0));
+                Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Caesar Cipher with key {1}.", moduleId, bombInfo.GetSerialNumberNumbers().ElementAt(0));
                 return caesarCipher(text, bombInfo.GetSerialNumberNumbers().ElementAt(0));
             case 1:
                 string temp = bombInfo.GetSerialNumber();
@@ -344,7 +345,7 @@ public class HangmanScript : MonoBehaviour
                     }
                 }
                 convertedSN.ToUpper();
-                Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Playfair Cipher with key {1} .", moduleId, convertedSN);
+                Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Playfair Cipher with key {1}.", moduleId, convertedSN);
                 return playfairCipher(text, convertedSN);
             case 2:
                 Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Rot13 Cipher.", moduleId);
@@ -353,10 +354,10 @@ public class HangmanScript : MonoBehaviour
                 Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Atbash Cipher.", moduleId);
                 return atbashCipher(text);
             case 4:
-                Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Affine Cipher with key {1} .", moduleId, bombInfo.GetSerialNumberNumbers().ElementAt(bombInfo.GetSerialNumberNumbers().Count() - 1)*2 + 1);
+                Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Affine Cipher with key {1}.", moduleId, bombInfo.GetSerialNumberNumbers().ElementAt(bombInfo.GetSerialNumberNumbers().Count() - 1)*2 + 1);
                 return affineCipher(text, bombInfo.GetSerialNumberNumbers().ElementAt(bombInfo.GetSerialNumberNumbers().Count()-1));
             case 5:
-                Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Modern Cipher with key {1} .", moduleId, bombInfo.GetSerialNumberNumbers().Sum());
+                Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Modern Cipher with key {1}.", moduleId, bombInfo.GetSerialNumberNumbers().Sum());
                 return modernCipher(text, bombInfo.GetSerialNumberNumbers().Sum());
             case 6:
                 return ViginereCipher(text, bombInfo.GetSerialNumber().ToString());
@@ -402,7 +403,7 @@ public class HangmanScript : MonoBehaviour
             key = key + key;
         }
         key = key.Substring(0, text.Length);
-        Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Vigenère Cipher with key {1} .", moduleId, key);
+        Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Vigenère Cipher with key {1}.", moduleId, key);
         string temp = "";
         for (int i = 0; i < text.Length; i++) {
             temp = temp + vigenereAlphabet[(findAlphaPos(text.Substring(i, 1), vigenereAlphabet) + findAlphaPos(key.Substring(i, 1), vigenereAlphabet))%36];
