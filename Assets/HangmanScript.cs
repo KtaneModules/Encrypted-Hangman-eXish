@@ -55,7 +55,7 @@ public class HangmanScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (GetMissionID() == "HHoaC")
+        if (GetMissionID() == "mod_MAlong_HHoaC")
         {
             hangmanHellMode = true;
             Debug.LogFormat("[Encrypted Hangman #{0}] Hangman Hell of a Climb mission detected, Encrypted Hangman will never be chosen as the message.", moduleId);
