@@ -6,6 +6,8 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using System.Text;
 using System.Globalization;
+using System;
+using System.Reflection;
 
 public class HangmanScript : MonoBehaviour
 {
@@ -38,6 +40,7 @@ public class HangmanScript : MonoBehaviour
     public string currentprogress;
     public string moduleName;
     public bool isIgnored = false;
+    public bool hangmanHellMode = false;
     int encryptionMethod; // for Souvenir
 
     static int moduleIdCounter = 1;
@@ -52,6 +55,11 @@ public class HangmanScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if (GetMissionID() == "HHoaC")
+        {
+            hangmanHellMode = true;
+            Debug.LogFormat("[Encrypted Hangman #{0}] Hangman Hell of a Climb mission detected, Encrypted Hangman will never be chosen as the message.", moduleId);
+        }
         Init();
     }
 
@@ -63,13 +71,12 @@ public class HangmanScript : MonoBehaviour
         isQueryed = new bool[] { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
         while (true)
         {
-            answer = bombInfo.GetSolvableModuleNames().ElementAt(Random.Range(0, bombInfo.GetSolvableModuleNames().Count() - 1));
-            if (!bombInfo.GetSolvedModuleNames().Contains(answer) || answer == "Encrypted Hangman")
+            answer = bombInfo.GetSolvableModuleNames().ElementAt(UnityEngine.Random.Range(0, bombInfo.GetSolvableModuleNames().Count()));
+            if ((!bombInfo.GetSolvedModuleNames().Contains(answer) && !hangmanHellMode) || (!bombInfo.GetSolvedModuleNames().Contains(answer) && answer != "Encrypted Hangman" && hangmanHellMode))
             {
                 moduleName = answer;
                 break;
             }
-
         }
 
         var normalizedString = answer.Normalize(NormalizationForm.FormD);
@@ -104,7 +111,7 @@ public class HangmanScript : MonoBehaviour
             uncipheredanswer = answer;
             Debug.LogFormat("[Encrypted Hangman #{0}] Selected module is -{1}-.", moduleId, moduleName);
             Debug.LogFormat("[Encrypted Hangman #{0}] The original message is -{1}-.", moduleId, uncipheredanswer);
-            answer = encrypt(answer, Random.Range(0, 6));
+            answer = encrypt(answer, UnityEngine.Random.Range(0, 6));
             for (int i = 0; i < hangmanParts.Length; i++)
             {
                 hangmanParts[i].GetComponent<MeshRenderer>().enabled = false;
@@ -139,7 +146,8 @@ public class HangmanScript : MonoBehaviour
                 "Cookie Jars",
                 "Divided Squares",
                 "Random Access Memory",
-                "Tax Returns"
+                "Tax Returns",
+                "Organization"
             });
 
         leftButton.OnInteract += delegate () { PressArrowButton(-1); return false; };
@@ -324,8 +332,25 @@ public class HangmanScript : MonoBehaviour
         return temp;
     }
 
+    string GetMissionID()
+    {
+        try
+        {
+            Component gameplayState = GameObject.Find("GameplayState(Clone)").GetComponent("GameplayState");
+            Type type = gameplayState.GetType();
+            FieldInfo fieldMission = type.GetField("MissionToLoad", BindingFlags.Public | BindingFlags.Static);
+            return fieldMission.GetValue(gameplayState).ToString();
+        }
+
+        catch (NullReferenceException)
+        {
+            return "undefined";
+        }
+    }
+
     public string encrypt(string text, int method)
     {
+        encryptionMethod = method;
         switch (method)
         {
             case 0:
