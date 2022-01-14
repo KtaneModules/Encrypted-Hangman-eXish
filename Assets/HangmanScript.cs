@@ -354,8 +354,8 @@ public class HangmanScript : MonoBehaviour
         switch (method)
         {
             case 0:
-                Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Caesar Cipher with key {1}.", moduleId, bombInfo.GetSerialNumberNumbers().ElementAt(0));
-                return caesarCipher(text, bombInfo.GetSerialNumberNumbers().ElementAt(0));
+                Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Caesar Cipher with key {1}.", moduleId, bombInfo.GetSerialNumberNumbers().ElementAt(0) == 0 ? 10 : bombInfo.GetSerialNumberNumbers().ElementAt(0));
+                return caesarCipher(text, bombInfo.GetSerialNumberNumbers().ElementAt(0) == 0 ? 10 : bombInfo.GetSerialNumberNumbers().ElementAt(0));
             case 1:
                 string temp = bombInfo.GetSerialNumber();
                 string convertedSN = "";
