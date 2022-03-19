@@ -32,8 +32,8 @@ public class HangmanScript : MonoBehaviour
     public TextMesh additionalLetters;
 
     public string[] alphabet = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-    public string[] modernAlphabet = { "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"};
-    public string[] vigenereAlphabet = {"B", "4", "5", "P", "R", "E", "L", "0", "A", "6", "G", "F", "D", "H", "O", "8", "C", "W", "M", "Q", "Y", "S", "J", "2", "Z", "T", "U", "9", "I", "1", "N", "3", "K", "7", "V", "X"};
+    public string[] modernAlphabet = { "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M" };
+    public string[] vigenereAlphabet = { "B", "4", "5", "P", "R", "E", "L", "0", "A", "6", "G", "F", "D", "H", "O", "8", "C", "W", "M", "Q", "Y", "S", "J", "2", "Z", "T", "U", "9", "I", "1", "N", "3", "K", "7", "V", "X" };
     public bool[] isQueryed;
     public string answer;
     public string uncipheredanswer;
@@ -125,7 +125,8 @@ public class HangmanScript : MonoBehaviour
                 Debug.LogFormat("[Encrypted Hangman #{0}] There is an Organization on the bomb. You are not restricted of solving this module first. Instances of {1} may be solved.", moduleId, moduleName);
             }
         }
-        else {
+        else
+        {
             Init();
         }
 
@@ -164,7 +165,7 @@ public class HangmanScript : MonoBehaviour
             {
                 if (bombInfo.GetSolvedModuleNames().ElementAt(i) == moduleName)
                 {
-                    Debug.LogFormat("[Encrypted Hangman #{0}] STRIKE due to: Unwanted module solved!", moduleId );
+                    Debug.LogFormat("[Encrypted Hangman #{0}] STRIKE due to: Unwanted module solved!", moduleId);
                     Strike();
                 }
             }
@@ -173,7 +174,7 @@ public class HangmanScript : MonoBehaviour
 
     void Solve()
     {
-        Debug.LogFormat("[Encrypted Hangman #{0}] MODULE SOLVED, WELL DONE!", moduleId );
+        Debug.LogFormat("[Encrypted Hangman #{0}] MODULE SOLVED, WELL DONE!", moduleId);
         isSolved = true;
         StartCoroutine(SolveAnimation());
         GetComponent<KMBombModule>().HandlePass();
@@ -228,7 +229,7 @@ public class HangmanScript : MonoBehaviour
         inAnimation = false;
         Debug.LogFormat("[Encrypted Hangman #{0}] Resetting module.", moduleId);
         Init();
-        
+
     }
 
     void PressArrowButton(int x)
@@ -276,7 +277,7 @@ public class HangmanScript : MonoBehaviour
 
             if (answer.Contains(LetterDisp.text) && !isQueryed[findAlphaPos(LetterDisp.text, alphabet)])              //maybe seperate
             {
-                
+
                 AudioSource.PlayClipAtPoint(chalkWriting, transform.position, volume);
                 makeLetterVisible(LetterDisp.text);
                 isQueryed[findAlphaPos(LetterDisp.text, alphabet)] = true;
@@ -293,7 +294,7 @@ public class HangmanScript : MonoBehaviour
                 if (increment >= hangmanParts.Length - 1)
                 {
                     hangmanParts[increment].GetComponent<MeshRenderer>().enabled = true;
-                    Debug.LogFormat("[Encrypted Hangman #{0}] STRIKE due to: To many wrong letters queried.", moduleId );
+                    Debug.LogFormat("[Encrypted Hangman #{0}] STRIKE due to: To many wrong letters queried.", moduleId);
                     Strike();
                 }
                 else
@@ -359,13 +360,15 @@ public class HangmanScript : MonoBehaviour
             case 1:
                 string temp = bombInfo.GetSerialNumber();
                 string convertedSN = "";
-                for (int i = 0; i < temp.Length; i++) {
+                for (int i = 0; i < temp.Length; i++)
+                {
                     char tempchar = temp.Substring(i, 1).ToCharArray()[0];
                     if (tempchar >= '0' && tempchar <= '9')
                     {
                         convertedSN = convertedSN + alphabet[tempchar - '0'];
                     }
-                    else {
+                    else
+                    {
                         convertedSN = convertedSN + tempchar;
                     }
                 }
@@ -379,8 +382,8 @@ public class HangmanScript : MonoBehaviour
                 Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Atbash Cipher.", moduleId);
                 return atbashCipher(text);
             case 4:
-                Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Affine Cipher with key {1}.", moduleId, bombInfo.GetSerialNumberNumbers().ElementAt(bombInfo.GetSerialNumberNumbers().Count() - 1)*2 + 1);
-                return affineCipher(text, bombInfo.GetSerialNumberNumbers().ElementAt(bombInfo.GetSerialNumberNumbers().Count()-1));
+                Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Affine Cipher with key {1}.", moduleId, bombInfo.GetSerialNumberNumbers().ElementAt(bombInfo.GetSerialNumberNumbers().Count() - 1) * 2 + 1);
+                return affineCipher(text, bombInfo.GetSerialNumberNumbers().ElementAt(bombInfo.GetSerialNumberNumbers().Count() - 1));
             case 5:
                 Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Modern Cipher with key {1}.", moduleId, bombInfo.GetSerialNumberNumbers().Sum());
                 return modernCipher(text, bombInfo.GetSerialNumberNumbers().Sum());
@@ -395,13 +398,14 @@ public class HangmanScript : MonoBehaviour
         string temp = "";
         for (int i = 0; i < text.Length; i++)
         {
-            temp = temp + alphabet[(findAlphaPos(text.Substring(i,1), alphabet) + key) % 26];
+            temp = temp + alphabet[(findAlphaPos(text.Substring(i, 1), alphabet) + key) % 26];
 
         }
         return temp;
     }
 
-    public string modernCipher(string text, int key) {
+    public string modernCipher(string text, int key)
+    {
         string temp = "";
         for (int i = 0; i < text.Length; i++)
         {
@@ -423,15 +427,18 @@ public class HangmanScript : MonoBehaviour
 
     }
 
-    public string ViginereCipher(string text, string key) {
-        for (int i = 0; i < text.Length / key.Length + 1; i++) {
+    public string ViginereCipher(string text, string key)
+    {
+        for (int i = 0; i < text.Length / key.Length + 1; i++)
+        {
             key = key + key;
         }
         key = key.Substring(0, text.Length);
         Debug.LogFormat("[Encrypted Hangman #{0}] Chosen encryption is Vigenère Cipher with key {1}.", moduleId, key);
         string temp = "";
-        for (int i = 0; i < text.Length; i++) {
-            temp = temp + vigenereAlphabet[(findAlphaPos(text.Substring(i, 1), vigenereAlphabet) + findAlphaPos(key.Substring(i, 1), vigenereAlphabet))%36];
+        for (int i = 0; i < text.Length; i++)
+        {
+            temp = temp + vigenereAlphabet[(findAlphaPos(text.Substring(i, 1), vigenereAlphabet) + findAlphaPos(key.Substring(i, 1), vigenereAlphabet)) % 36];
         }
         temp = temp.Replace("0", "A");
         temp = temp.Replace("1", "B");
@@ -455,7 +462,7 @@ public class HangmanScript : MonoBehaviour
 
     public string playfairCipher(string text, string key)
     {
-        
+
         key = key.ToUpper();
         text = text.Replace("J", "I");
         key = key.Replace("J", "I");
@@ -491,7 +498,7 @@ public class HangmanScript : MonoBehaviour
         {
             text = text + "X";
             addedX = true;
-            
+
         }
         Debug.LogFormat("[Encrypted Hangman #{0}] The message for playfair is {1}", moduleId, text);
         int x1 = 0;
@@ -541,7 +548,8 @@ public class HangmanScript : MonoBehaviour
         {
             return cipheredtext.Substring(0, cipheredtext.Length - 1);
         }
-        else {
+        else
+        {
             return cipheredtext;
         }
     }
@@ -588,32 +596,73 @@ public class HangmanScript : MonoBehaviour
 
     IEnumerator ProcessTwitchCommand(string command)
     {
-        command = command.ToUpper();
-        if (Regex.IsMatch(command, @"^SELECT [A-Z]+$"))
+        var m = Regex.Match(command, @"^\s*SELECT\s+[A-Z]+\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+        if (!m.Success)
         {
-            yield return null;
-            command = command.Substring(6).Trim();
-            answer = answer.Replace(" ", "");
-            char[] temp = command.ToCharArray();
-            for (int i = 0; i < temp.Length; i++)
+            yield return "sendtochaterror Command must begin with SELECT.";
+            yield break;
+        }
+        yield return null;
+        var st = command.ToUpperInvariant().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1].ToCharArray();
+        answer = answer.Replace(" ", "");
+        for (int i = 0; i < st.Length; i++)
+        {
+            int current = findAlphaPos(LetterDisp.text, alphabet);
+            int target = findAlphaPos(st[i].ToString(), alphabet);
+            while (current != target)
             {
-                int times = (findAlphaPos(temp[i].ToString(), alphabet) - findAlphaPos(LetterDisp.text, alphabet) + 26) % 26;
-                for (int j = 0; j < times; j++)
+                current = findAlphaPos(LetterDisp.text, alphabet);
+                int distance = (Math.Abs(current - target) + 13) % 26 - 13;
+                if (current > target)
+                    distance *= -1;
+                if (distance > 0)
                 {
                     rightButton.OnInteract();
                     yield return new WaitForSeconds(0.05f);
                 }
-                submitLetter.OnInteract();
-                yield return new WaitForSeconds(0.1f);
+                else if (distance < 0)
+                {
+                    leftButton.OnInteract();
+                    yield return new WaitForSeconds(0.05f);
+                }
             }
-            yield break;
-        }
-        else {
-            yield return "sendtochaterror Command must begin with SELECT.";
+            submitLetter.OnInteract();
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
-    void TwitchHandleForcedSolve() {
-        Solve();
+    private IEnumerator TwitchHandleForcedSolve()
+    {
+        var s = "";
+        for (int i = 0; i < answer.Length; i++)
+        {
+            if (!isQueryed[findAlphaPos(answer[i].ToString(), alphabet)] && !s.Contains(answer[i]))
+                s += answer[i].ToString();
+        }
+        yield return null;
+        for (int i = 0; i < s.Length; i++)
+        {
+            int current = findAlphaPos(LetterDisp.text, alphabet);
+            int target = findAlphaPos(s[i].ToString(), alphabet);
+            while (current != target)
+            {
+                current = findAlphaPos(LetterDisp.text, alphabet);
+                int distance = (Math.Abs(current - target) + 13) % 26 - 13;
+                if (current > target)
+                    distance *= -1;
+                if (distance > 0)
+                {
+                    rightButton.OnInteract();
+                    yield return new WaitForSeconds(0.05f);
+                }
+                else if (distance < 0)
+                {
+                    leftButton.OnInteract();
+                    yield return new WaitForSeconds(0.05f);
+                }
+            }
+            submitLetter.OnInteract();
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
