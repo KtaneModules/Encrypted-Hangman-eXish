@@ -18,7 +18,7 @@ MonoBehaviour:
     https://steamcommunity.com/sharedfiles/filedetails/?id=2097028243\n\nPlay a game
     of Hangman!\r\n\r\nHTML: https://ktane.timwi.de/HTML/Encrypted%20Hangman.html\r\nPDF:
     https://ktane.timwi.de/PDF/Encrypted%20Hangman.pdf\r\n\r\nEncrypted Hangman (encryptedHangman)
-    v1.2.0\nModule by GeekYiwen, maintained by eXish\r\nTwitch Plays supported"
-  version: 1.2.0
+    v1.2.1\nModule by GeekYiwen, maintained by eXish\r\nTwitch Plays supported"
+  version: 1.2.1
   outputFolder: build
   previewImage: {fileID: 2800000, guid: 1da01d263145a1046825533b892c0fef, type: 3}

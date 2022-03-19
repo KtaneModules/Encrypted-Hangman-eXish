@@ -530,13 +530,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1644033818190934}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -0.0514, y: 0.0121, z: 0.0614}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.0009999999}
+  m_LocalPosition: {x: -0.0514, y: 0.01115, z: 0.0614}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.001}
   m_Children:
   - {fileID: 4070662684713910}
   m_Father: {fileID: 4402637473012256}
   m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: -90.00001, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
 --- !u!4 &4252396381339216
 Transform:
   m_ObjectHideFlags: 1
@@ -651,7 +651,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1664044877520694}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.01, y: 1, z: -0.02}
+  m_LocalPosition: {x: 0.01, y: 0.51, z: -0.02}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 4989324581478408}
@@ -772,13 +772,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1271108072999564}
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0.0166, y: 0.0121, z: 0.0614}
+  m_LocalPosition: {x: 0.0166, y: 0.01115, z: 0.0614}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.001}
   m_Children:
   - {fileID: 4089929159269324}
   m_Father: {fileID: 4402637473012256}
   m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: -90.00001, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: -90, z: 0}
 --- !u!4 &4967045959429414
 Transform:
   m_ObjectHideFlags: 1
@@ -799,7 +799,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1988430123355228}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0174, y: 0.0119, z: 0.0601}
+  m_LocalPosition: {x: -0.0174, y: 0.0106, z: 0.0601}
   m_LocalScale: {x: 0.03, y: 0.001, z: 0.03}
   m_Children:
   - {fileID: 4549788706372904}
@@ -1856,6 +1856,7 @@ MonoBehaviour:
   currentprogress: 
   moduleName: 
   isIgnored: 0
+  hangmanHellMode: 0
   isActive: 0
   isSolved: 0
   inAnimation: 0
