@@ -93,7 +93,7 @@ public class HangmanScript : MonoBehaviour
 
         answer = stringBuilder.ToString().Normalize(NormalizationForm.FormC);
 
-        answer = new string(answer.Where(char.IsLetter).ToArray());
+        answer = new string(answer.Where("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".Contains).ToArray());
 
         answer = answer.ToUpper();
         if (answer.Length != 0)
